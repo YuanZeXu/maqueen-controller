@@ -5,7 +5,7 @@ let Y = 0
 let X = 0
 basic.showIcon(IconNames.Yes)
 basic.pause(500)
-radio.setGroup(1)
+radio.setGroup(87)
 pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
 pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
 pins.setPull(DigitalPin.P15, PinPullMode.PullNone)
