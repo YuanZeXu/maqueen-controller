@@ -10,6 +10,7 @@ pins.setPull(DigitalPin.P13, PinPullMode.PullNone)
 pins.setPull(DigitalPin.P14, PinPullMode.PullNone)
 pins.setPull(DigitalPin.P15, PinPullMode.PullNone)
 pins.setPull(DigitalPin.P16, PinPullMode.PullNone)
+pins.setPull(DigitalPin.P8, PinPullMode.PullNone)
 basic.forever(function () {
     basic.clearScreen()
     X = pins.analogReadPin(AnalogPin.P1)
@@ -58,4 +59,35 @@ basic.forever(function () {
         radio.sendValue("G", 0)
     }
     serial.writeValue("button_G", 1 - pins.digitalReadPin(DigitalPin.P13))
+    if (pins.digitalReadPin(DigitalPin.P8) == 0) {
+        radio.sendValue("Z", 1)
+        led.plotBrightness(1, 1, 63)
+        led.plotBrightness(1, 2, 63)
+        led.plotBrightness(1, 3, 63)
+        led.plotBrightness(2, 1, 63)
+        led.plotBrightness(2, 2, 63)
+        led.plotBrightness(2, 3, 63)
+        led.plotBrightness(3, 1, 63)
+        led.plotBrightness(3, 2, 63)
+        led.plotBrightness(3, 3, 63)
+    } else {
+        radio.sendValue("Z", 0)
+    }
+    serial.writeValue("button_Z", 1 - pins.digitalReadPin(DigitalPin.P8))
+    if (input.buttonIsPressed(Button.A)) {
+        led.plotBrightness(0, 0, 63)
+        radio.sendValue("LA", 1)
+        serial.writeValue("button_LA", 1)
+    } else {
+        radio.sendValue("LA", 0)
+        serial.writeValue("button_LA", 0)
+    }
+    if (input.buttonIsPressed(Button.B)) {
+        led.plotBrightness(4, 0, 63)
+        radio.sendValue("RB", 1)
+        serial.writeValue("button_RB", 1)
+    } else {
+        radio.sendValue("RB", 0)
+        serial.writeValue("button_RB", 0)
+    }
 })
